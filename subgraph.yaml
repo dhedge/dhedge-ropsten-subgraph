@@ -1,16 +1,17 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Contract
+    name: DhedgeFactory
     network: ropsten
     source:
       address: "0xdd1Ee9e21bbd0012d1C710Ed94057A3CBE3E02D7"
-      abi: Contract
+      abi: DhedgeFactory
+      startBlock: 8795914
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - DaoAddressSet
@@ -22,8 +23,8 @@ dataSources:
         - OwnershipTransferred
         - ProxyCreated
       abis:
-        - name: Contract
-          file: ./abis/Contract.json
+        - name: DhedgeFactory
+          file: ./abis/DhedgeFactory.json
       eventHandlers:
         - event: DaoAddressSet(address)
           handler: handleDaoAddressSet
@@ -41,4 +42,4 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: ProxyCreated(address)
           handler: handleProxyCreated
-      file: ./src/mapping.ts
+      file: ./src/factory.ts
