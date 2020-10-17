@@ -7,7 +7,7 @@ import {
   MaximumSupportedAssetCountSet as MaximumSupportedAssetCountSetEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   ProxyCreated as ProxyCreatedEvent
-} from "../generated/Contract/Contract"
+} from "../generated/DhedgeFactory/DhedgeFactory"
 import {
   DaoAddressSet,
   DaoFeeSet,
@@ -16,8 +16,9 @@ import {
   FundCreated,
   MaximumSupportedAssetCountSet,
   OwnershipTransferred,
-  ProxyCreated
-} from "../generated/schema"
+  ProxyCreated } from "../generated/schema"
+
+import { Dhedge as DhedgeTemplate } from "../generated/templates"
 
 export function handleDaoAddressSet(event: DaoAddressSetEvent): void {
   let entity = new DaoAddressSet(
@@ -66,6 +67,8 @@ export function handleFundCreated(event: FundCreatedEvent): void {
   entity.managerFeeNumerator = event.params.managerFeeNumerator
   entity.managerFeeDenominator = event.params.managerFeeDenominator
   entity.save()
+
+  DhedgeTemplate.create(event.params.fundAddress)
 }
 
 export function handleMaximumSupportedAssetCountSet(
@@ -79,8 +82,7 @@ export function handleMaximumSupportedAssetCountSet(
 }
 
 export function handleOwnershipTransferred(
-  event: OwnershipTransferredEvent
-): void {
+  event: OwnershipTransferredEvent): void {
   let entity = new OwnershipTransferred(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
