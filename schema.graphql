@@ -155,9 +155,9 @@ type Pool @entity {
   managerName: String! # string`
   totalSupply: BigInt! # uint256
   fundValue: BigInt! # uint256
+  tokenPrice: BigInt! # uint256
   exchanges: [Exchange!]! @derivedFrom(field: "pool")
   deposits: [Deposit!]! @derivedFrom(field: "pool")
   withdrawals: [Withdrawal!]! @derivedFrom(field: "pool")
   isPrivatePool: Boolean! # bool
-  tokenPrice: BigInt! # uint256
 }

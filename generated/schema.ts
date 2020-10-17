@@ -1351,6 +1351,15 @@ export class Pool extends Entity {
     this.set("fundValue", Value.fromBigInt(value));
   }
 
+  get tokenPrice(): BigInt {
+    let value = this.get("tokenPrice");
+    return value.toBigInt();
+  }
+
+  set tokenPrice(value: BigInt) {
+    this.set("tokenPrice", Value.fromBigInt(value));
+  }
+
   get exchanges(): Array<string> {
     let value = this.get("exchanges");
     return value.toStringArray();
@@ -1385,14 +1394,5 @@ export class Pool extends Entity {
 
   set isPrivatePool(value: boolean) {
     this.set("isPrivatePool", Value.fromBoolean(value));
-  }
-
-  get tokenPrice(): BigInt {
-    let value = this.get("tokenPrice");
-    return value.toBigInt();
-  }
-
-  set tokenPrice(value: BigInt) {
-    this.set("tokenPrice", Value.fromBigInt(value));
   }
 }
